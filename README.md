@@ -104,14 +104,13 @@ Once the extraction model is trained, it needs to be applied to the entire datas
 ## Step 6: Cluster Emails
 This step helps generate some insights into the contents of the emails dataset. With [BERTopic](https://maartengr.github.io/BERTopic/index.html), we can use unsupervised clustering algorithms to identify the most common types of questions.
 
-I also recommend to run this in a cloud environment, since on the first run, you will need to generate embeddings with a GPU instance. Copy the files ```6_cluster_emails.ipynb```, ```config.ini```, and the output csv from step 4 to your cloud environment. I used an AWS Sagemaker Studio ```g4dn.xlarge``` instance for the first run, and ```ml.t3.medium``` for subsequent runs.
+I also recommend to run this in a cloud environment, since on the first run, you will need to generate embeddings with a GPU instance. Copy the files ```6_cluster_emails.ipynb```, ```config.ini```, and the output csv from step 4 to your cloud environment. I used an AWS Sagemaker Studio ```g4dn.xlarge``` instance for the first run, and ```ml.t3.large``` for subsequent runs.
 
 The notebook does a separate clustering for questions and answers. This is for two reasons: first, it allows more specialized clusters. Second, later we can evaluate the quality of our clusters by finding correlation between question and answer categories. If the clusters are meaningful, we should find high correlation.
 
 BERTopic's clustering is not perfect, so some human intervention will be required. It has a feature to automatically reduce the number of topics, but I found it more effective to reduce to a still large number, and manually merge related topics. The notebook includes a sample of how to merge and manually rename the clusters. To make decisions about cluster contents, you can use the ```display_qs``` and ```display_as``` functions to display all questions/answers for a particular category, respectively.
 
-Once the clustering is complete, there is a section to evaluate the resulting clusters. A correlation score between question and answer categories helps to identify the most common answer for different types of questions. We collect the most common URLs seen in each answer category, and the most "representative" samples per category according to BERTopic.
-
+Once the clustering is complete, there is a section to evaluate the resulting clusters. A correlation score between question and answer categories helps to identify the most common answer for different types of questions. We collect the most common URLs seen in each answer category, and the most "representative" samples per category according to BERTopic. The list of emails with their cluster categories will be written to the OUT_FILE_EMAILS file, while a summary of question/answer categories is written to OUT_FILE_QUESTION_CLUSTERS and OUT_FILE_ANSWER_CLUSTERS respectively.
 
 # Future Improvements
 
