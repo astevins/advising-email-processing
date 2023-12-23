@@ -1,0 +1,10 @@
+pandas
+pywin32
+dateparser
+mail-parser-reply
+quotequail
+scrubadub
+scrubadub-spacy
+spacy
+spacy-transformers
+sentencepiece
